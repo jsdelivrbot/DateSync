@@ -29,6 +29,11 @@ class App extends Component {
     this.state = {
       Calendar: Calendar,
     };
+    MCalendar.allow({
+      insert(room, doc) {
+        return true;
+      }
+    });
   }
 
 
@@ -47,12 +52,11 @@ class App extends Component {
     var tempCalendar = this.state.Calendar;
     tempCalendar[date] = 0;
     this.setState({Calendar: tempCalendar});
-    // console.log(this.props.calendars);
-
-    MCalendar.update("59b9d376cd64712edd5367b6", {
+    var id = MCalendar.find({room: "12345"}).fetch()[0]._id;
+    MCalendar.update({_id: id}, {
       $set: { array: tempCalendar },
     });
-    console.log(MCalendar.find({_id: "59b9d376cd64712edd5367b6"}).fetch());
+    console.log(MCalendar.find({room: "12345"}).fetch());
   }
 
   render() {
