@@ -7,19 +7,16 @@ import FreeDays from '../components/test.jsx'; // Date Generate button
 
 import { MCalendar } from '../api/availableDates.js';
 
-// import {ObjectID} from 'mongodb'
-
 
 
 
 
 // App component - represents the whole app
-class App extends Component {
+class Date extends Component {
 
   constructor(props) {
     super(props);
     this.remove = this.remove.bind(this);
-    this.update = this.update.bind(this);
 
     //Setting up all days as free dates
     var Calendar = new Array(32);
@@ -27,8 +24,9 @@ class App extends Component {
       Calendar[i] = i;
     }
     this.state = {
-      Calendar: Calendar,
+      Calendar: this.props.calendar,
     };
+    console.log(this.props.calendars);
   }
 
 
@@ -45,36 +43,29 @@ class App extends Component {
 
   remove(date) {
     var tempCalendar = this.state.Calendar;
+    console.log(date);
     tempCalendar[date] = 0;
     this.setState({Calendar: tempCalendar});
-    // console.log(this.props.calendars);
 
-    MCalendar.update("59b9d376cd64712edd5367b6", {
+    MCalendar.update("23D6HgwiQ2NKWRZPq", {
       $set: { array: tempCalendar },
     });
-    console.log(MCalendar.find({_id: "59b9d376cd64712edd5367b6"}).fetch());
   }
 
   render() {
+
     var date = new Date();
     var d= new Date(date.getFullYear(), date.getMonth()+1, 0);
     var availDates = new Array(32);
 
     return (
 
-      <div className="container">
-        <FreeDays days = {this.state.Calendar}/>
-        <Calendar remove = {this.remove} update = {this.update}/>
-
-      </div>
-
+      <Calendar remove = {this.remove} update = {this.update}/>
+      
     );
   }
 }
-
-
-export default createContainer(() => {
-  return {
-    calendars: MCalendar.find({}).fetch(),
-  };
-}, App);
+export default Date;
+// App.propTypes = {
+//   calendars: PropTypes.array.isRequired,
+// };
