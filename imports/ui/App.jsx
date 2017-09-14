@@ -38,8 +38,8 @@ class App extends Component {
 
 
   update() {
-    var item = this.renderCal();
-    this.setState({Calendar: item[0]});
+    var nArray = MCalendar.find({room: "12345"}).fetch()[0].array;
+    this.setState({Calendar: nArray});
   }
   renderCal() {
     return this.props.calendars.map((cal) => (
