@@ -10,9 +10,6 @@ import { MCalendar } from '../api/availableDates.js';
 // import {ObjectID} from 'mongodb'
 
 
-
-
-
 // App component - represents the whole app
 class App extends Component {
 
@@ -20,6 +17,7 @@ class App extends Component {
     super(props);
     this.remove = this.remove.bind(this);
     this.update = this.update.bind(this);
+
 
     //Setting up all days as free dates
     var Calendar = new Array(32);
@@ -36,27 +34,39 @@ class App extends Component {
     });
   }
 
+  //  Restores all free days  
+  resetDays() {
+    var reset = new Array(32);
+    for(var i=0; i<32; i++) 
+      reset[i] = i;
+    
+    var id = MCalendar.find({room: "12345"}).fetch()[0]._id;
+    MCalendar.update({_id: id}, {
+      $set: { array: reset },
+    })
+
+    this.update();
+  }
 
   update() {
     var nArray = MCalendar.find({room: "12345"}).fetch()[0].array;
     this.setState({Calendar: nArray});
   }
+
   renderCal() {
     return this.props.calendars.map((cal) => (
       cal.array
     ));
   }
 
-
   remove(date) {
-    var tempCalendar = this.state.Calendar;
+    var tempCalendar = MCalendar.find({room: "12345"}).fetch()[0].array;
     tempCalendar[date] = 0;
     this.setState({Calendar: tempCalendar});
     var id = MCalendar.find({room: "12345"}).fetch()[0]._id;
     MCalendar.update({_id: id}, {
       $set: { array: tempCalendar },
     });
-    console.log(MCalendar.find({room: "12345"}).fetch());
   }
 
   render() {
@@ -65,11 +75,11 @@ class App extends Component {
     var availDates = new Array(32);
 
     return (
-
       <div className="container">
         <FreeDays days = {this.state.Calendar}/>
         <Calendar remove = {this.remove} update = {this.update}/>
 
+        <button className="button" onClick={() => this.resetDays()}>Reset</button>
       </div>
 
     );

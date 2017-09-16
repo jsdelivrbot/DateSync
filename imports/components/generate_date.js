@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 class Calendar extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
+
   }
 
   printDate(date) {
     console.log(date);
   }
+
   render() {
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -61,7 +62,8 @@ class Calendar extends Component {
             <div onClick={() => this.props.remove(month[0][1])} className="days">{month[0][1]}</div>
             <div onClick={() => this.props.remove(month[0][2])} className="days">{month[0][2]}</div>
             <div onClick={() => this.props.remove(month[0][3])} className="days">{month[0][3]}</div>
-            <div onClick={() => this.props.remove(month[0][4])} className="days">{month[0][4]}</div>
+            <div onClick={() => this.props.remove(month[0][4])} className="days test">{month[0][4]}</div>
+
           </div>
           <div className = "Mon col-sm-1">
             <div onClick={() => this.props.remove(month[1][0])} className="days">{month[1][0]}</div>

@@ -29,6 +29,9 @@ class Date extends Component {
     console.log(this.props.calendars);
   }
 
+  resetDays() {
+    console.log('hi');
+  }
 
   update() {
     var item = this.renderCal();
