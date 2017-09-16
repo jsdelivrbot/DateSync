@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 const FreeDays = ({days}) => {
-  // console.log(this.props);
-  var i = 0;
   const updateC = days.map((day) => {
     if(day != 0) {
       return (
@@ -10,7 +8,7 @@ const FreeDays = ({days}) => {
           {day}
         </li>
       );
-    }
+    } 
 
   });
 

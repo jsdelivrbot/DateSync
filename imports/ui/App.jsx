@@ -3,7 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data'; // To use react mete
 
 
 import Calendar from '../components/generate_date.js'; // Date Generate button
-import FreeDays from '../components/test.jsx'; // Date Generate button
+import FreeDays from '../components/FreeDays.jsx'; // Date Generate button
 
 import { MCalendar } from '../api/availableDates.js';
 
@@ -34,8 +34,8 @@ class App extends Component {
     });
   }
 
-  //  Restores all free days  
-  resetDays() {
+  //  Restores all free dates  
+  resetDates() {
     var reset = new Array(32);
     for(var i=0; i<32; i++) 
       reset[i] = i;
@@ -51,6 +51,7 @@ class App extends Component {
   update() {
     var nArray = MCalendar.find({room: "12345"}).fetch()[0].array;
     this.setState({Calendar: nArray});
+
   }
 
   renderCal() {
@@ -62,7 +63,7 @@ class App extends Component {
   remove(date) {
     var tempCalendar = MCalendar.find({room: "12345"}).fetch()[0].array;
     tempCalendar[date] = 0;
-    this.setState({Calendar: tempCalendar});
+    // this.setState({Calendar: tempCalendar});
     var id = MCalendar.find({room: "12345"}).fetch()[0]._id;
     MCalendar.update({_id: id}, {
       $set: { array: tempCalendar },
@@ -71,15 +72,14 @@ class App extends Component {
 
   render() {
     var date = new Date();
-    var d= new Date(date.getFullYear(), date.getMonth()+1, 0);
-    var availDates = new Array(32);
+    // var d = new Date(date.getFullYear(), date.getMonth()+1, 0);
 
     return (
       <div className="container">
         <FreeDays days = {this.state.Calendar}/>
         <Calendar remove = {this.remove} update = {this.update}/>
 
-        <button className="button" onClick={() => this.resetDays()}>Reset</button>
+        <button className="button" onClick={() => this.resetDates()}>Reset</button>
       </div>
 
     );

@@ -1,9 +1,10 @@
 /* CSS declarations go here */
 
 .active {
+  float: left;
   border: solid 2px;
   text-align: center;
-  padding: 45px;
+  padding: 2.5em;
   background: lightgreen;
   opacity: .8;
 }
@@ -34,10 +35,16 @@ body {
 }
 
 .days {
+  float: left;
+  font-size: 1em;
   border: solid 2px;
   text-align: center;
-  padding: 45px;
+  padding: 2.5em;
   background: #e5efff;
+}
+
+.newline {
+  white-space: pre-wrap;
 }
 
 header {
@@ -59,24 +66,11 @@ h1 {
   margin-right: 1em;
 }
 
+
 form {
   margin-top: 10px;
   margin-bottom: -10px;
   position: relative;
-}
-
-.new-task input {
-  box-sizing: border-box;
-  padding: 10px 0;
-  background: transparent;
-  border: none;
-  width: 100%;
-  padding-right: 80px;
-  font-size: 1em;
-}
-
-.new-task input:focus{
-  outline: 0;
 }
 
 ul {
@@ -95,7 +89,7 @@ ul {
 }
 
 li {
-  font-size: 10px;
+  font-size: 15px;
 
   position: relative;
   list-style: none;
@@ -122,23 +116,4 @@ li.private {
 
 header .hide-completed {
   float: right;
-}
-
-.toggle-private {
-  margin-left: 5px;
-}
-
-@media (max-width: 600px) {
-  li {
-    padding: 12px 15px;
-  }
-
-  .search {
-    width: 150px;
-    clear: both;
-  }
-
-  .new-task input {
-    padding-bottom: 5px;
-  }
 }
