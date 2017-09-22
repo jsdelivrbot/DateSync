@@ -26,6 +26,7 @@ class App extends Component {
     }
     this.state = {
       Calendar: Calendar,
+      roomNumber: "",
     };
     MCalendar.allow({
       insert(room, doc) {
@@ -34,13 +35,13 @@ class App extends Component {
     });
   }
 
-  //  Restores all free dates  
+  //  Restores all free dates
   resetDates() {
     var reset = new Array(32);
-    for(var i=0; i<32; i++) 
+    for(var i=0; i<32; i++)
       reset[i] = i;
-    
-    var id = MCalendar.find({room: "12345"}).fetch()[0]._id;
+
+    var id = MCalendar.find({room: this.state.roomNumber}).fetch()[0]._id;
     MCalendar.update({_id: id}, {
       $set: { array: reset },
     })
@@ -48,8 +49,24 @@ class App extends Component {
     this.update();
   }
 
+  makeRoom() {
+    var code = "";
+    var possible = "abcdefghijklmnopqrstuvwxyz";
+    var array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+      15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+    for(var i=0; i < 6; i++){
+      code += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    MCalendar.insert({
+      array: array,
+      room: code
+    });
+    this.setState({Calendar: array});
+    this.setState({roomNumber: code});
+  }
+
   update() {
-    var nArray = MCalendar.find({room: "12345"}).fetch()[0].array;
+    var nArray = MCalendar.find({room: this.state.roomNumber}).fetch()[0].array;
     this.setState({Calendar: nArray});
 
   }
@@ -61,10 +78,10 @@ class App extends Component {
   }
 
   remove(date) {
-    var tempCalendar = MCalendar.find({room: "12345"}).fetch()[0].array;
+    var tempCalendar = MCalendar.find({room: this.state.roomNumber}).fetch()[0].array;
     tempCalendar[date] = 0;
     // this.setState({Calendar: tempCalendar});
-    var id = MCalendar.find({room: "12345"}).fetch()[0]._id;
+    var id = MCalendar.find({room: this.state.roomNumber}).fetch()[0]._id;
     MCalendar.update({_id: id}, {
       $set: { array: tempCalendar },
     });
@@ -80,6 +97,7 @@ class App extends Component {
         <Calendar remove = {this.remove} update = {this.update}/>
 
         <button className="button" onClick={() => this.resetDates()}>Reset</button>
+        <button className="button" onClick={() => this.makeRoom()}>Create Room</button>
       </div>
 
     );
