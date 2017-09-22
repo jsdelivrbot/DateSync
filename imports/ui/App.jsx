@@ -111,11 +111,9 @@ class App extends Component {
   
         <input value={this.state.roomNumber} onChange={evt => this.getInput(evt)}/> 
         <button className="button" onClick={() => this.update()}>Enter Room</button>
-    
+        
       </div>
-
     );
-
 
   }
 }

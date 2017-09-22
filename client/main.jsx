@@ -15,9 +15,6 @@ Meteor.startup(() => {
       $(this).removeClass('days');
   	});
 
-    $('.newDays').on('click', function() {
-      $(this).addClass('newActive');
-      $(this).removeClass('newDays');
-    });
-  });
+   
+  }); 
 });
