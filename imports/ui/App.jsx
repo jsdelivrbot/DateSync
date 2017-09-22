@@ -18,7 +18,6 @@ class App extends Component {
     this.remove = this.remove.bind(this);
     this.update = this.update.bind(this);
 
-
     //Setting up all days as free dates
     var Calendar = new Array(32);
     for(var i=0; i<32; i++) {
@@ -49,6 +48,10 @@ class App extends Component {
     this.update();
   }
 
+  enterRoom(code) {
+    var id = MCalendar.find({room: code}).fetch()[0]._id;
+  }
+
   makeRoom() {
     var code = "";
     var possible = "abcdefghijklmnopqrstuvwxyz";
@@ -63,12 +66,12 @@ class App extends Component {
     });
     this.setState({Calendar: array});
     this.setState({roomNumber: code});
+    console.log(code);
   }
 
   update() {
     var nArray = MCalendar.find({room: this.state.roomNumber}).fetch()[0].array;
     this.setState({Calendar: nArray});
-
   }
 
   renderCal() {
@@ -87,6 +90,13 @@ class App extends Component {
     });
   }
 
+  getInput(evt) {
+    console.log(evt.target.value);
+    this.setState({
+      roomNumber: evt.target.value
+    }); 
+  }
+
   render() {
     var date = new Date();
     // var d = new Date(date.getFullYear(), date.getMonth()+1, 0);
@@ -98,9 +108,15 @@ class App extends Component {
 
         <button className="button" onClick={() => this.resetDates()}>Reset</button>
         <button className="button" onClick={() => this.makeRoom()}>Create Room</button>
+  
+        <input value={this.state.roomNumber} onChange={evt => this.getInput(evt)}/> 
+        <button className="button" onClick={() => this.update()}>Enter Room</button>
+    
       </div>
 
     );
+
+
   }
 }
 
