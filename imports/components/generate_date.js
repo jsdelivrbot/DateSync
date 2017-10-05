@@ -56,7 +56,7 @@ class Calendar extends Component {
     }
 
     var week = (
-        <div className='test-container'>
+        <div className='cal-container'>
           <div className='row'>
                 <div className='days col-sm-1' onClick={() => this.props.remove(month[0][0])}>{month[0][0]}</div>
                 <div className='days col-sm-1' onClick={() => this.props.remove(month[1][0])}>{month[1][0]}</div>
@@ -102,7 +102,6 @@ class Calendar extends Component {
                 <div className='days col-sm-1' onClick={() => this.props.remove(month[5][4])}>{month[5][4]}</div>
                 <div className='days col-sm-1' onClick={() => this.props.remove(month[6][4])}>{month[6][4]}</div>
           </div>
-          <button onClick ={() => this.props.update()}>Update</button>
         </div>
 
     );

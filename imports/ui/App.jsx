@@ -88,6 +88,7 @@ class App extends Component {
     MCalendar.update({_id: id}, {
       $set: { array: tempCalendar },
     });
+    this.update();
   }
 
   getInput(evt) {
@@ -106,11 +107,12 @@ class App extends Component {
         <FreeDays days = {this.state.Calendar}/>
         <Calendar remove = {this.remove} update = {this.update}/>
 
-        <button className="button" onClick={() => this.resetDates()}>Reset</button>
-        <button className="button" onClick={() => this.makeRoom()}>Create Room</button>
-  
+        <br/>
+        <div className="button" onClick={() => this.makeRoom()}>Create Room</div>
+        <div className="button" onClick={() => this.update()}>Enter Room</div>
+        <br/><br/>
         <input value={this.state.roomNumber} onChange={evt => this.getInput(evt)}/> 
-        <button className="button" onClick={() => this.update()}>Enter Room</button>
+        <br/><br/><br/><br/>
         
       </div>
     );
